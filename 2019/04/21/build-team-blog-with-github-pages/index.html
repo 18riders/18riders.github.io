@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="技术团队乐于技术分享，鼓励内部成员通过博客文章分享技术心得。 无奈近来博客平台广告云起，各类广告商竭尽所能吸引眼球，大有喧宾夺主之势。 衡量再三，F团队决定另觅净土。GitHub Pages能否成为最后净土，且听下文分解。">
+<meta name="keywords" content="github,github pages,hexo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用Github Pages管理团队博客">
+<meta property="og:url" content="http://yoursite.com/2019/04/21/build-team-blog-with-github-pages/index.html">
+<meta property="og:site_name" content="燕云十八飞骑">
+<meta property="og:description" content="技术团队乐于技术分享，鼓励内部成员通过博客文章分享技术心得。 无奈近来博客平台广告云起，各类广告商竭尽所能吸引眼球，大有喧宾夺主之势。 衡量再三，F团队决定另觅净土。GitHub Pages能否成为最后净土，且听下文分解。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/2019/04/21/build-team-blog-with-github-pages/hexo.png">
+<meta property="og:image" content="http://yoursite.com/2019/04/21/build-team-blog-with-github-pages/nodejs.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/04/21/build-team-blog-with-github-pages/hexo-git-deploy.png">
+<meta property="og:image" content="http://yoursite.com/2019/04/21/build-team-blog-with-github-pages/folder.png">
+<meta property="og:image" content="http://yoursite.com/2019/04/21/build-team-blog-with-github-pages/more-tag.png">
+<meta property="og:image" content="http://yoursite.com/2019/04/21/build-team-blog-with-github-pages/categories-tags.png">
+<meta property="og:image" content="http://yoursite.com/2019/04/21/build-team-blog-with-github-pages/preview.png">
+<meta property="og:updated_time" content="2019-04-21T18:25:25.187Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用Github Pages管理团队博客">
+<meta name="twitter:description" content="技术团队乐于技术分享，鼓励内部成员通过博客文章分享技术心得。 无奈近来博客平台广告云起，各类广告商竭尽所能吸引眼球，大有喧宾夺主之势。 衡量再三，F团队决定另觅净土。GitHub Pages能否成为最后净土，且听下文分解。">
+<meta name="twitter:image" content="http://yoursite.com/2019/04/21/build-team-blog-with-github-pages/hexo.png">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://yoursite.com/2019/04/21/build-team-blog-with-github-pages/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>使用Github Pages管理团队博客 | 燕云十八飞骑</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">燕云十八飞骑</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">奔腾如虎风烟举,老魔小丑，岂堪一击</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/21/build-team-blog-with-github-pages/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="vipshop_fin_dev">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="燕云十八飞骑">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">使用Github Pages管理团队博客
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-04-21 19:33:40" itemprop="dateCreated datePublished" datetime="2019-04-21T19:33:40+08:00">2019-04-21</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-22 02:25:25" itemprop="dateModified" datetime="2019-04-22T02:25:25+08:00">2019-04-22</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/前端开发/" itemprop="url" rel="index"><span itemprop="name">前端开发</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>技术团队乐于技术分享，鼓励内部成员通过博客文章分享技术心得。</p>
+<p>无奈近来博客平台广告云起，各类广告商竭尽所能吸引眼球，大有喧宾夺主之势。</p>
+<p>衡量再三，F团队决定另觅净土。GitHub Pages能否成为最后净土，且听下文分解。</p>
+</blockquote>
+<a id="more"></a>
+<h1 id="GitHub-Pages简介"><a href="#GitHub-Pages简介" class="headerlink" title="GitHub Pages简介"></a>GitHub Pages简介</h1><p>首先得了解一下什么是github，<strong>GitHub是一个共享虚拟主机服务，用于存放使用Git版本控制的软件代码和内容项目(引自维基百科）</strong>。也就程序员口中常说的“<strong>全球最大的同性交友平台</strong>”，这个平台会提供一个静态页面托管服务。<a href="https://pages.github.com/" target="_blank" rel="noopener">GitHub Pages是这样介绍自己</a>，<em>“You get one site per GitHub account and organization,  and unlimited project sites. “</em> 简而言之，就是每个账号都拥有个同名的<em>username.github.io</em>站点可供个性化展示。</p>
+<p>以下是官方展示使用命令行创建GitHub Pages页的样例：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> git clone https://github.com/username/username.github.io</span><br><span class="line"><span class="meta">$</span> cd username.github.io</span><br><span class="line"><span class="meta">$</span> echo "Hello World" &gt; index.html</span><br><span class="line"><span class="meta">$</span> git add --all</span><br><span class="line"><span class="meta">$</span> git commit -m "Initial commit"</span><br><span class="line"><span class="meta">$</span> git push -u origin master</span><br></pre></td></tr></table></figure>
+<p>只需几行命令就能拥有一个终身免费，免备案的静态站点。当然如果使用每次发布都要手写html文件的话有点让人受不了。好在GitHub对markdown格式极度友好，业界也对此开源了许多博客工具，如Hexo，Hugo，Jekyll等等。网上也有很多入门教程，如：《<a href="http://cyzus.github.io/2015/06/21/github-build-blog/" target="_blank" rel="noopener">傻瓜都可以利用github pages建博客</a>》。</p>
+<h1 id="工欲善其事必先利其器"><a href="#工欲善其事必先利其器" class="headerlink" title="工欲善其事必先利其器"></a>工欲善其事必先利其器</h1><p>F团队决定入坑GitHub Pages后，关于如何管理博客。成员M安利了<a href="https://hexo.io/zh-cn/" target="_blank" rel="noopener">Hexo</a>静态博客框架。</p>
+<p>官方简绍如下：</p>
+<p><img src="/2019/04/21/build-team-blog-with-github-pages/hexo.png" alt="hexo"></p>
+<p>看上去不难用，而且<a href="https://hexo.io/zh-cn/docs/" target="_blank" rel="noopener">Hexo文档</a>相当完善，安装hexo需要<strong>Nodejs</strong>环境，先去Nodejs官网下载装好再进行下一步操作。</p>
+<p><img src="/2019/04/21/build-team-blog-with-github-pages/nodejs.jpg" alt="nodejs"></p>
+<p>再看一下<a href="https://hexo.io/zh-cn/docs/deployment" target="_blank" rel="noopener">hexo的部署方式</a>。</p>
+<p><img src="/2019/04/21/build-team-blog-with-github-pages/hexo-git-deploy.png" alt="hexo-git-deploy"></p>
+<p>通过拜读hexo-deployer-git插件的部署方式，我们可以认为需要新建一个hexo项目对GitHub Pages进行发布。</p>
+<p>于是通过<code>hexo init lesson-learned</code>初始化项目。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> hexo init lesson-learned</span><br><span class="line">INFO  Cloning hexo-starter to E:\git\18riders\lesson-learned</span><br><span class="line">   ......</span><br><span class="line">added 421 packages in 50.302s</span><br><span class="line">INFO  Start blogging with Hexo!</span><br></pre></td></tr></table></figure>
+<p>至此，Github Pages的博客雏形算是搭好了。剩下的就是优化点了。</p>
+<p>主要是追加<code>hexo-deployer-git</code>和<code>hexo-asset-image</code>两个插件。</p>
+<p><code>hexo-deployer-git</code>支持git deploy部署模式，自不用说。</p>
+<p><code>hexo-asset-image</code>支持图片相对路径引用。</p>
+<h1 id="开始写作"><a href="#开始写作" class="headerlink" title="开始写作"></a>开始写作</h1><p>以本文为例吧，建议使用命令行初始化文章，文章命名使用英文和横杆连接，不要出现中文。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new [post] build-team-blog-with-github-pages</span><br></pre></td></tr></table></figure>
+<p>上述命令会在<code>source/_posts</code>目录下生产同名文件和同名文件夹。</p>
+<p><img src="/2019/04/21/build-team-blog-with-github-pages/folder.png" alt="folder"></p>
+<p>本文所引用的图片和其他资源都可以通过相对路径从文件夹中引入。写作使用markdown语法，就不展开了。</p>
+<p>建议使用<code>&lt;!-- more --&gt;</code>标签将摘要和正文隔开，会使得段落更错落有致，如：</p>
+<p><img src="/2019/04/21/build-team-blog-with-github-pages/more-tag.png" alt="more-tag"></p>
+<p>还有就是善用categories和tags标签，使文章能更好的进行分类</p>
+<p><img src="/2019/04/21/build-team-blog-with-github-pages/categories-tags.png" alt="categories-tags"></p>
+<p>写作时可以一边写，一边执行<code>hexo s</code>命令，进行实时预览，能对文章进行更好的调整。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ hexo s</span><br><span class="line">$ INFO  Start processing</span><br><span class="line">$ INFO  Hexo is running at http://localhost:4000 . Press Ctrl+C to stop.</span><br></pre></td></tr></table></figure>
+<p>在浏览器中打开<a href="http://localhost:4000" target="_blank" rel="noopener">http://localhost:4000</a>查看效果。</p>
+<p><img src="/2019/04/21/build-team-blog-with-github-pages/preview.png" alt="preview"></p>
+<p>更多的实用写作技巧可以查阅markdown详细语法，如表格、图表、数学公式之类的markdown有成熟的展示方案，还有的就是Hexo的<a href="https://hexo.io/zh-cn/docs/writing.html" target="_blank" rel="noopener">写作指南</a>，本文所有提及的知识点都能在上面找到。</p>
+<h1 id="团队协作"><a href="#团队协作" class="headerlink" title="团队协作"></a>团队协作</h1><p>这块其实日常开发一样了，项目下加入成员。每个成员可以通过拉取分支再合并到主干模式写作，也可以自己直接推送到master分支上。推送完成，使用master分支执行<code>hexo g</code> 和<code>hexo d</code>命令发布到GitHub Pages上即可。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> hexo g</span><br><span class="line"><span class="meta">$</span> hexo d</span><br></pre></td></tr></table></figure>
+<p>当然，强烈建议能形成一版操作规范。不然这种无审核的自由式写作很快会分化成一锅粥。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>很高兴团队能进一步拥抱GitHub生态圈，其实GitHub Pages除了作为博客平台外，很多个人和团队也将其作为自己项目的API说明和项目说明使用。如《Kafka技术内幕》作者的<a href="http://zqhxuyuan.github.io/2017/12/31/Kafka-Book-Appendix/" target="_blank" rel="noopener">Kafka技术内幕附录</a>；有赞团队的前端组件的<a href="https://youzan.github.io/vant/" target="_blank" rel="noopener">API文档</a>；当然还有很多开源翻译团体也在使用这项功能。此外，首个版本使用的主题是偏向简约型的<code>Next</code>主题，如有更合适的主题或优化方案可以持续优化。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/github/" rel="tag"># github</a>
+          
+            <a href="/tags/github-pages/" rel="tag"># github pages</a>
+          
+            <a href="/tags/hexo/" rel="tag"># hexo</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">vipshop_fin_dev</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">1</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">1</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#GitHub-Pages简介"><span class="nav-number">1.</span> <span class="nav-text">GitHub Pages简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#工欲善其事必先利其器"><span class="nav-number">2.</span> <span class="nav-text">工欲善其事必先利其器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#开始写作"><span class="nav-number">3.</span> <span class="nav-text">开始写作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#团队协作"><span class="nav-number">4.</span> <span class="nav-text">团队协作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">vipshop_fin_dev</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.1.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.1.0"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.1.0"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
